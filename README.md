@@ -1,4 +1,10 @@
 # Merge PDF Tool
+
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
+![GUI](https://img.shields.io/badge/GUI-Tkinter-yellowgreen)
+![Function](https://img.shields.io/badge/Feature-PDF%20Merge-red)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+
 A simple and user-friendly tool to merge multiple PDF files into a single document.
 <br><br>
 
