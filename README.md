@@ -9,7 +9,7 @@ A simple and user-friendly tool to merge multiple PDF files into a single docume
 <br><br>
 
 ### Screenshots
-![The Merge PDF Tool](/screenshots/PDF_Merge_UI.PNG)
+![The Merge PDF Tool](/screenshots/PDF_Merge_UI.png)
 
 ### Features
 - Add PDF-Files via the **Open PDF-File** button.
