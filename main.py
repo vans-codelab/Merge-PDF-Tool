@@ -6,13 +6,20 @@ from tkinter import filedialog
 from tkinter import messagebox
 from tkinterdnd2 import DND_FILES, TkinterDnD
 
-VERSION = "v1.0"
+VERSION = "v1.0.0"
 BUTTON_WIDTH = 13
 FIELD_WIDTH = 80
-# pdf icon from
-# https://de.freepik.com/icon/pdf_13310078#fromView=search&page=1&position=73&uuid=9083c303-0ec3-4f6d-9cf6-9c6592339a35
 
 # ---- PDF Functions ------------------------------------------------------
+def set_status_ready():
+    label_status.config(text="Status: Ready", fg="grey")
+
+def set_status_merging():
+    label_status.config(text="Status: Merging...", fg="grey")
+
+def set_status_finish():
+    label_status.config(text="Status: Finish.", fg="green")
+
 def add_file_to_listbox(file):
     """Makes sure that selected file is in PDF-Format to enable merge.\n
        - If file is a PDF, then file is added to listbox.\n
@@ -26,12 +33,12 @@ def add_file_to_listbox(file):
     if file.endswith(".pdf"):
         # If file is a PDF -> Add to listbox
         listbox_pdf.insert(tk.END, file)
+        set_status_ready()
         return True
     else:
         # If file is NOT a PDF -> Error
-        messagebox.showinfo(title="ERROR - No PDF", message="The selected file has to be a PDF.")
+        messagebox.showinfo(title="Error - No PDF", message="The selected file has to be a PDF.")
         return False
-
 
 def dragndrop_to_listbox(file_data):
     """When user selects a single PDF-File or multiple PDF-Files at once,
@@ -45,6 +52,7 @@ def dragndrop_to_listbox(file_data):
     for pdf in pdfs:
         add_file_to_listbox(pdf)
 
+    set_status_ready()
 
 def select_file():
     """Enables user to select a PDF-File from the directory for merging."""
@@ -56,11 +64,16 @@ def select_file():
 def remove_selected_file():
     """Removes PDF-File that is selected by user."""
     selected_file_index = listbox_pdf.curselection()
-    listbox_pdf.delete(selected_file_index)
+    if not selected_file_index:
+        messagebox.showinfo(title="Error: Select File",message="Please select which file should be removed.")
+    else:
+        listbox_pdf.delete(selected_file_index)
+        set_status_ready()
 
 def remove_all_files():
     """Removes all PDF-Files in the list"""
     listbox_pdf.delete(0, tk.END)
+    set_status_ready()
 
 def select_folder():
     """Enables user to change the output folder where the merged file will be saved."""
@@ -68,15 +81,19 @@ def select_folder():
     if folder != "":  # If user does not select "Cancel" button in dialog
         entry_save_to.delete(0, tk.END)
         entry_save_to.insert(0, folder)
+        set_status_ready()
 
 def merge_pdfs():
     """Merges PDF-Files."""
     list_of_pdfs = listbox_pdf.get(0, tk.END)
+    set_status_ready()
 
     if len(list_of_pdfs) <= 1:
-        messagebox.showinfo(title="ERROR: Cannot Merge",
+        messagebox.showinfo(title="Error: Cannot Merge",
                             message="Please select at least 2 PDF-Files to merge.")
     else:
+        set_status_merging()
+
         # Create an empty target file
         merged_files = pymupdf.open()
 
@@ -89,20 +106,15 @@ def merge_pdfs():
         # Check where to save the merged file
         folder_path = entry_save_to.get()
         file_name = entry_file_name.get()
-        destination = f"{folder_path}\{file_name}"
+        destination = f"{folder_path}\{file_name}.pdf"
 
-        if file_name.strip(" ").endswith(".pdf"):
-            try:
-                # Merge PDF-files and save
-                merged_files.save(destination)
-                messagebox.showinfo(title="Merge Done.",
-                                    message="Finished. Your merged file has been saved.")
-            except pymupdf.mupdf.FzErrorSystem:
-                messagebox.showinfo(title="ERROR: Folder Path",
-                                    message="Cannot find folder.\n Please check folder path under 'Save to'.")
-        else:
-            messagebox.showinfo(title="ERROR: Output File Type",
-                                message="Output File Name has to be .pdf")
+        try:
+            # Merge PDF-files and save
+            merged_files.save(destination)
+            set_status_finish()
+        except pymupdf.mupdf.FzErrorSystem:
+            messagebox.showinfo(title="Error: Folder Path",
+                                message="Cannot find folder.\nPlease check folder path under 'Save to Folder'.")
 
 
 # ---- Listbox events (User can move PDF-Files within Listbox via drag and drop) -----------------------------------
@@ -157,17 +169,17 @@ scrollbar_horizontal = tk.Scrollbar(orient="horizontal", command=listbox_pdf.xvi
 listbox_pdf.configure(xscrollcommand=scrollbar_horizontal.set)
 scrollbar_horizontal.grid(column=0, row=5, sticky="e,w")
 
-button_select_file = tk.Button(width=BUTTON_WIDTH, text="Open PDF-File", command=select_file)
+button_select_file = tk.Button(width=BUTTON_WIDTH, text="Add File", command=select_file)
 button_select_file.grid(column=2, row=2, sticky="w", padx=(10, 0))
 
 button_remove_file = tk.Button(width=BUTTON_WIDTH, text="Remove File", command=remove_selected_file)
 button_remove_file.grid(column=2, row=3, sticky="w", padx=(10, 0), pady=(10, 0))
 
-button_remove_all = tk.Button(width=BUTTON_WIDTH, text="Remove All Files", command=remove_all_files)
+button_remove_all = tk.Button(width=BUTTON_WIDTH, text="Remove All", command=remove_all_files)
 button_remove_all.grid(column=2, row=4, sticky="w", padx=(10, 0))
 
 # Save to
-label_save_to = tk.Label(text="Save to (Folder Path):")
+label_save_to = tk.Label(text="Save to Folder:")
 label_save_to.grid(column=0, row=6, sticky="w", pady=(20, 0))
 
 current_dir = os.path.dirname(__file__)  # current directory where this python file is located
@@ -175,24 +187,32 @@ entry_save_to = tk.Entry(width=FIELD_WIDTH)
 entry_save_to.insert(0, current_dir)
 entry_save_to.grid(column=0, row=7, sticky="w")
 
-button_select_folder = tk.Button(width=BUTTON_WIDTH, text="Open Folder", command=select_folder)
+button_select_folder = tk.Button(width=BUTTON_WIDTH, text="Select Folder", command=select_folder)
 button_select_folder.grid(column=2, row=7, sticky="w", padx=(10, 0))
 
 # Save as (file name)
-label_save_as = tk.Label(text="Save as (File Name):")
+label_save_as = tk.Label(text="File Name:")
 label_save_as.grid(column=0, row=8, sticky="w", pady=(10, 0))
 
 entry_file_name = tk.Entry(width=FIELD_WIDTH)
-entry_file_name.insert(0, "merged.pdf")
+entry_file_name.insert(0, "merged_file")
 entry_file_name.grid(column=0, row=9, sticky="w")
 
+label_file_ending = tk.Label(text=".pdf", fg="grey")
+label_file_ending.grid(column=1, row=9, sticky="w")
+
 # Merge button
-button_merge = tk.Button(text="Merge PDF", command=merge_pdfs, bg="#E5D9F2")
+button_merge = tk.Button(text="Merge", command=merge_pdfs, bg="#E5D9F2")
 button_merge.config(padx=50, pady=15)
 button_merge.grid(column=0, row=10, pady=(30, 0))
 
+# Merge status
+label_status = tk.Label(text="test")
+label_status.grid(column=0, row=11, pady=(20, 0))
+#set_status_ready()
+
 # Tool Version
 label_version = tk.Label(text=VERSION, fg="grey")
-label_version.grid(column=2, row=11, pady=(30, 0), sticky="e")
+label_version.grid(column=2, row=12, pady=(30, 0), sticky="e")
 
 window_dragndrop.mainloop()
