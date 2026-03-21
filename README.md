@@ -6,94 +6,104 @@
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 
 A simple and user-friendly tool to merge multiple PDF files into a single document.
-<br><br>
 
-### How it Works
-1. Click the **Open PDF-File** button or simply drag and drop PDF files into the window. 
-2. *(Optional)* Change the default output path or rename the final PDF-file. 
-3. Click **Merge PDF** to merge all selected PDFs into one file - done! 
-<br><br>
 
-### Screenshots
+## Table of contents
+
+
+## Screenshots
 ![The Merge PDF Tool](/screenshots/PDF_Merge_UI.png)
 
-### Features
-- Add PDF-Files via the **Open PDF-File** button.
-- Or drag and drop files into the window. 
-- Reorder files via drag and drop.
-- Remove one or all files in the list
-- Choose a custom output folder.
-- Rename the final PDF file.
-- Helpful error messages:
-  - Merging requires at least two PDF files.
-  - Only PDF files are supported.
-  - Output folder must exist.
-  - Output file name must end with `.pdf`
-- Built with Tkinter (standard GUI library in Python)
-<br><br>
 
-### Requirements
+## Features
+- Select PDF files
+- Drag and drop files into the application window
+- Reorder files before merging
+- Remove individual files or clear the entire list
+- Choose the output folder for the merged PDF
+- Rename the final PDF file before saving
+- Display helpful error messages for common issues:
+  - At least two PDF files are required for merging
+  - Only PDF files are supported
+  - The selected output folder must exist
+  - A file must be selected before it can be removed
+- Built with Tkinter (a standard GUI library in Python)
+
+
+## Requirements (for developers)
 - **Programming Language:**
   Developed and tested with Python 3.11.  
   Download Python at: https://www.python.org/downloads/
 
 - **Python Packages:**
   See [requirements.txt](requirements.txt) for all dependencies.
-<br><br>
 
-### Usage
-1. **Download Files:**
-   
-   Click on the green "Code" button on GitHub and download the repository as a ZIP file.  
-   Extract the folder and make sure all Python files are in the same folder
-   
-2. **Open the Project Folder**
-   
-   Open the command prompt (CMD, Terminal, or PowerShell) and navigate to the folder where the files were extracted.  
-
-   Example:
-
-       cd "C:\Merge_PDF\"
-
-4. *(Optional, but recommended)*
-   
-   **Create a Virtual Environment**
-   To avoid conflicts with other Python packages on the system, is is recommended to use a virtual environment.
-
-   
-   On windows:
   
-       python -m venv venv
-       venv\Scripts\activate  # On Windows
+## Installation & Setup (for developers)
+### 1. Download the project
 
-    On macOS/Linux:
-       
-       python -m venv venv
-       source venv/bin/activate  # On macOS/Linux
+**Option A: Clone via Git**
+```bash
+git clone https://github.com/vans-codelab/Merge-PDF-Tool
+cd Merge-PDF-Tool
+```
 
-3. **Install Required Packages**
-   
-   Make sure Python is installed.
-   `pip` comes bundled with Python, so it should be possible to install all required packages by running:
+**Option B: Download ZIP from GitHub**  
+Download ZIP from GitHub and extract it. Then navigate to the extracted folder with the following command:
+```bash
+cd <path-to-extracted-project-folder>   
+```
 
-       pip install -r requirements.txt
+### 2. Create a virtual environment and activate it
+Windows:
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+```
+macOS/Linux:
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
 
-5. **Run the Program:**
-   
-   Run **main.py** to start the program:
-  
-       python main.py
+### 3. Install required packages
+```bash
+pip install -r requirements.txt
+```
+### 4. Run the application
+```bash
+python main.py
+```
 
-### Context
+
+## Quick start (for users)
+1. Go to the Releases section of this repository and download the latest .zip file.
+2. Unzip the downloaded ZIP file (Right-click the downloaded file and select "Extract All").
+3. Open the extracted folder.
+4. Double-click on "MergePDFTool.exe" to start the program. 
+
+⚠️ Notes
+
+
+
+## Usage
+1. **Add PDF files:** Use the "Add" button to select files, or drag and drop them into the field.
+2. **Arrange files (optional):** Press and hold a file, then drag it to change its order.
+3. **Remove files (optional):** Use the "Remove" buttons to remove individual files or all files.
+4. **Change the output folder (optional):** Use the "Select Folder" button to choose a folder.
+5. **Merge files:** Use the "Merge" button to combine the files into a single document.
+
+
+## Context
 While I was looking for a PDF merging tool, I thought: Why not create my own? 
-I wanted to build a simple and user-friendly tool that allows users to customize the output — such as the file name, file order, or the save location.
+
+I wanted to build an offline tool, that is simple and user-friendly.
 Designing and implementing the tool was both a fun and rewarding challenge. 
 Especially integrating a drag-and-drop functionality and handling error cases were some of the more challenging tasks. 
 Overcoming them added a lot of value to the overall project.
 
-I'm happy with how the tool turned out and hope it’s helpful to others as well!
-<br><br>
+As a result, the project evolved into a practical offline tool that may also be useful for others who are looking for a simple way to merge PDF files locally.
 
-### License
 
+## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
