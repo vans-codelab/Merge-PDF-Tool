@@ -1,4 +1,5 @@
 import os
+import sys
 import re
 import pymupdf
 import tkinter as tk
@@ -11,6 +12,17 @@ BUTTON_WIDTH = 13
 FIELD_WIDTH = 80
 
 # ---- PDF Functions ------------------------------------------------------
+def get_current_dir():
+    """Returns the directory of the currently running file (.py or .exe file)."""
+    if getattr(sys, 'frozen', False):
+        # pdf program is executed as .exe
+        current_dir = os.path.dirname(sys.executable)
+    else:
+        # pdf program is executed as .py
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        #current_dir = os.path.dirname(__file__)
+    return current_dir
+
 def set_status_ready():
     label_status.config(text="Status: Ready", fg="grey")
 
@@ -77,10 +89,10 @@ def remove_all_files():
 
 def select_folder():
     """Enables user to change the output folder where the merged file will be saved."""
-    folder = filedialog.askdirectory(initialdir=current_dir)
+    folder = filedialog.askdirectory(initialdir=get_current_dir)
     if folder != "":  # If user does not select "Cancel" button in dialog
-        entry_save_to.delete(0, tk.END)
-        entry_save_to.insert(0, folder)
+        entry_output_folder.delete(0, tk.END)
+        entry_output_folder.insert(0, folder)
         set_status_ready()
 
 def merge_pdfs():
@@ -104,7 +116,7 @@ def merge_pdfs():
             file.close()
 
         # Check where to save the merged file
-        folder_path = entry_save_to.get()
+        folder_path = entry_output_folder.get()
         file_name = entry_file_name.get()
         destination = f"{folder_path}\{file_name}.pdf"
 
@@ -149,12 +161,11 @@ canvas.create_image(100, 90, image=pdf_img)
 canvas.grid(column=0, row=0)
 
 # PDFs field
-label_pdfs = tk.Label(text="PDF-Files:")
+label_pdfs = tk.Label(text="PDF Files:")
 label_pdfs.grid(column=0, row=1, sticky="w")
 
 listbox_pdf = tk.Listbox(window_dragndrop, height=7, width=FIELD_WIDTH)  # Listbox + dragging and dropping files into listbox
 listbox_pdf.drop_target_register(DND_FILES)
-#listbox_pdf.dnd_bind('<<Drop>>', lambda event : add_file_to_listbox(event.data))
 listbox_pdf.dnd_bind('<<Drop>>', lambda event : dragndrop_to_listbox(event.data))
 listbox_pdf.grid(column=0, row=2, rowspan=3, sticky="w")
 
@@ -182,10 +193,9 @@ button_remove_all.grid(column=2, row=4, sticky="w", padx=(10, 0))
 label_save_to = tk.Label(text="Save to Folder:")
 label_save_to.grid(column=0, row=6, sticky="w", pady=(20, 0))
 
-current_dir = os.path.dirname(__file__)  # current directory where this python file is located
-entry_save_to = tk.Entry(width=FIELD_WIDTH)
-entry_save_to.insert(0, current_dir)
-entry_save_to.grid(column=0, row=7, sticky="w")
+entry_output_folder = tk.Entry(width=FIELD_WIDTH)
+entry_output_folder.insert(0, get_current_dir())
+entry_output_folder.grid(column=0, row=7, sticky="w")
 
 button_select_folder = tk.Button(width=BUTTON_WIDTH, text="Select Folder", command=select_folder)
 button_select_folder.grid(column=2, row=7, sticky="w", padx=(10, 0))
@@ -207,9 +217,9 @@ button_merge.config(padx=50, pady=15)
 button_merge.grid(column=0, row=10, pady=(30, 0))
 
 # Merge status
-label_status = tk.Label(text="test")
+label_status = tk.Label()
 label_status.grid(column=0, row=11, pady=(20, 0))
-#set_status_ready()
+set_status_ready()
 
 # Tool Version
 label_version = tk.Label(text=VERSION, fg="grey")
