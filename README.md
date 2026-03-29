@@ -10,6 +10,15 @@ A simple and user-friendly tool to merge multiple PDF files into a single docume
 
 ## Table of contents
 
+- [Screenshots](#screenshots)
+- [Features](#features)
+- [Requirements (for developers)](#requirements-for-developers)
+- [Installation & Setup (for developers)](#installation--setup-for-developers)
+- [Quick start (for users)](#quick-start-for-users)
+- [How to use](#how-to-use)
+- [Context](#context)
+- [License](#license)
+
 
 ## Screenshots
 ![The Merge PDF Tool](/screenshots/PDF_Merge_UI.png)
@@ -77,21 +86,18 @@ python main.py
 
 
 ## Quick start (for users)
-1. Go to the Releases section of this repository and download the latest .zip file.
-2. Unzip the downloaded ZIP file (Right-click the downloaded file and select "Extract All").
+1. Go to the "Releases" section of this repository and download the latest .zip file.
+2. Unzip the downloaded ZIP file (Right-click on the downloaded file and select "Extract All").
 3. Open the extracted folder.
-4. Double-click on "MergePDFTool.exe" to start the program. 
-
-⚠️ Notes
+4. Double-click "Merge-PDF-Tool.exe" to start the application. It may take a few seconds to launch.
 
 
-
-## Usage
-1. **Add PDF files:** Use the "Add" button to select files, or drag and drop them into the field.
-2. **Arrange files (optional):** Press and hold a file, then drag it to change its order.
-3. **Remove files (optional):** Use the "Remove" buttons to remove individual files or all files.
-4. **Change the output folder (optional):** Use the "Select Folder" button to choose a folder.
-5. **Merge files:** Use the "Merge" button to combine the files into a single document.
+## How to use
+  - **Add files**   →  Click "Add File" or drag & drop PDFs into the field.
+  - **Reorder**     →  Hold & drag a file to change its position.
+  - **Remove**      →  Use "Remove" buttons to delete individual or all files.
+  - **Choose**      →  Rename the output file and select the folder where it will be saved.
+  - **Merge**       →  Click "Merge" to combine the files into a single document.
 
 
 ## Context
