@@ -12,9 +12,12 @@ A simple and user-friendly tool to merge multiple PDF files into a single docume
 
 - [Screenshots](#screenshots)
 - [Features](#features)
-- [Requirements (for developers)](#requirements-for-developers)
-- [Installation & Setup (for developers)](#installation--setup-for-developers)
-- [Quick start (for users)](#quick-start-for-users)
+- [For users](#for-users)
+  - [System requirements](#system-requirements)
+  - [Quick start](#quick-start)
+- [For developers](#for-developers)
+  - [Requirements](#requirements)
+  - [Installation & Setup](#installation--setup)
 - [How to use](#how-to-use)
 - [Context](#context)
 - [License](#license)
@@ -39,7 +42,20 @@ A simple and user-friendly tool to merge multiple PDF files into a single docume
 - Built with Tkinter (a standard GUI library in Python)
 
 
-## Requirements (for developers)
+## For users
+### System requirements
+- Windows 10 or newer
+- No installation required
+
+### Quick start
+1. Go to the "Releases" section of this repository and download the latest .zip file.
+2. Unzip the downloaded ZIP file (Right-click on the downloaded file and select "Extract All").
+3. Open the extracted folder.
+4. Double-click "Merge-PDF-Tool.exe" to start the application. It may take a few seconds to launch.
+
+
+## For developers
+### Requirements
 - **Programming Language:**
   Developed and tested with Python 3.11.  
   Download Python at: https://www.python.org/downloads/
@@ -47,9 +63,8 @@ A simple and user-friendly tool to merge multiple PDF files into a single docume
 - **Python Packages:**
   See [requirements.txt](requirements.txt) for all dependencies.
 
-  
-## Installation & Setup (for developers)
-### 1. Download the project
+### Installation & Setup
+#### 1. Download the project
 
 **Option A: Clone via Git**
 ```bash
@@ -63,7 +78,7 @@ Download ZIP from GitHub and extract it. Then navigate to the extracted folder w
 cd <path-to-extracted-project-folder>   
 ```
 
-### 2. Create a virtual environment and activate it
+#### 2. Create a virtual environment and activate it
 Windows:
 ```bash
 python -m venv .venv
@@ -75,21 +90,14 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
-### 3. Install required packages
+#### 3. Install required packages
 ```bash
 pip install -r requirements.txt
 ```
-### 4. Run the application
+#### 4. Run the application
 ```bash
 python main.py
 ```
-
-
-## Quick start (for users)
-1. Go to the "Releases" section of this repository and download the latest .zip file.
-2. Unzip the downloaded ZIP file (Right-click on the downloaded file and select "Extract All").
-3. Open the extracted folder.
-4. Double-click "Merge-PDF-Tool.exe" to start the application. It may take a few seconds to launch.
 
 
 ## How to use
