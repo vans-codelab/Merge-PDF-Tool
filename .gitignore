@@ -64,8 +64,9 @@ venv.bak/
 # Jupyter Notebook
 .ipynb_checkpoints/
 
-# IDEs
-# VS Code
+# OS / IDE
+.DS_Store
+.idea/
 .vscode/
 
 # PyCharm / IntelliJ
@@ -90,6 +91,16 @@ desktop.ini
 
 # SQLite
 *.sqlite3
+
+# PyInstaller build artifacts
+/build/
+/dist/
+/*.spec
+
+# PyInstaller cache & temp
+__pycache__/
+*.pyc
+*.log
 
 # Other
 /notes/
