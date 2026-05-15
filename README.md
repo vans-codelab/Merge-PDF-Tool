@@ -24,7 +24,7 @@ A simple and user-friendly tool to merge multiple PDF files into a single docume
 
 
 ## Screenshots
-![The Merge PDF Tool](/screenshots/PDF_Merge_UI.png)
+![The Merge PDF Tool](/assets/screenshots/PDF_Merge_UI.png)
 
 
 ## Features
